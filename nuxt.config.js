@@ -157,7 +157,7 @@ export default {
         scope: ['openid', 'profile', 'email'],
         response_type: 'token',
         token_type: 'Bearer',
-        redirect_uri: 'http://localhost:3000',
+        redirect_uri: 'http://localhost:3060',
         token_key: 'access_token',
         state: 'UNIQUE_AND_NON_GUESSABLE',
         client_id:
@@ -209,4 +209,7 @@ export default {
       }
     },
   },
+  server: {
+    port: 3060,
+  }
 }
