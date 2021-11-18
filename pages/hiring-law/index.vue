@@ -8,19 +8,34 @@
         <h1>{{ $t('hiring_laws') }}</h1>
         <v-row v-for="(item, i) in law" :key="i" class="my-sm-12 py-sm-12">
           <template v-if="i % 2 == 0">
-            <v-col md="4" cols="12">
+            <!-- <v-col md="4" cols="12">
               <img
                 class="job-card transform-20"
                 width="100%"
                 :src="item.image || ''"
                 alt=""
               />
-            </v-col>
-            <v-col md="8" cols="12">
+            </v-col> -->
+            <v-col md="6" sm="6" cols="12">
               <v-card class="pa-5 job-card law-odd">
                 <article>
                   <h3>{{ item.title[$i18n.locale] || '' }}</h3>
                   <p v-html="item.note[$i18n.locale] || ''"></p>
+                  <v-row>
+                    <v-col md="12">
+                           <v-btn
+                            :href="item.file && item.file[0].file"
+                            
+                            height="54px"
+                            color="#fff"
+                            outlined
+                            style="color:#000;"
+                          >
+                            
+                            <span class="mx-2">{{ $t('law_file') }}</span>
+                          </v-btn>
+                    </v-col>
+                  </v-row>
                 </article>
               </v-card>
             </v-col>
@@ -34,14 +49,14 @@
                 </article>
               </v-card>
             </v-col>
-            <v-col md="4" cols="12">
+            <!-- <v-col md="4" cols="12">
               <img
                 class="job-card transform-odd-20"
                 width="100%"
                 :src="item.image || ''"
                 alt=""
               />
-            </v-col>
+            </v-col> -->
           </template>
         </v-row>
       </v-container>

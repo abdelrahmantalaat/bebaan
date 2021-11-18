@@ -38,8 +38,26 @@
             </ul>
             <!-- {{ setting }} -->
           </v-col>
-          <v-col md="4" sm="6" cols="12">
+            <v-col md="4" sm="6" cols="12">
             <v-form @submit.prevent="sendMessage">
+            
+              <v-text-field
+                      dense
+                      filled
+                      v-model="form.name"
+                       v-on="listeners"
+                      v-bind="attrs"
+                      :label="$t('name')"
+                    ></v-text-field>
+                      <v-text-field
+                      dense
+                      filled
+                      v-model="form.phone"
+                      v-on="listeners"
+                      v-bind="attrs"
+                      type="number"
+                      :label="$t('phone')"
+                    ></v-text-field>
               <v-select
                 :items="types"
                 item-text="name"
@@ -97,6 +115,8 @@ export default {
     return {
       loadingBtn: false,
       form: {
+        name:'',
+        phone:'',
         contact_type_id: '',
         message: '',
       },
@@ -110,6 +130,8 @@ export default {
         .then(() => {
           this.form.contact_type_id = ''
           this.form.message = ''
+          this.form.name = ''
+          this.form.phone = ''
           this.loadingBtn = false
         })
         .finally(() => (this.loadingBtn = false))

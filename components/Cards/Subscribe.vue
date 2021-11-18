@@ -17,7 +17,7 @@
         <div class="img-content radius-10">
           <img
             :src="employee.avatar || require('@/assets/images/avatar.png')"
-            alt=""
+            alt="" style="width:50%;border-radius:50%;"
           />
         </div>
       </section>

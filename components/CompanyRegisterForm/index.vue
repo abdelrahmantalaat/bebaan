@@ -3,13 +3,13 @@
     <v-form @submit.prevent="handleSubmit">
       <v-row>
         <v-col cols="12" md="6" class="py-0 my-0">
-          <form-group name="foundation_name" attribute="foundation_name">
+          <form-group name="company_name" attribute="company_name">
             <template slot-scope="{ attrs, listeners }">
               <v-text-field
                 v-bind="attrs"
                 v-on="listeners"
                 filled
-                v-model="form.foundation_name"
+                v-model="form.company_name"
               ></v-text-field>
             </template>
           </form-group>
@@ -28,13 +28,13 @@
           </form-group>
         </v-col>
         <v-col cols="12" md="6" class="py-0 my-0">
-          <form-group name="email" attribute="email">
+          <form-group name="email_main_domain" attribute="email_main_domain">
             <template slot-scope="{ attrs, listeners }">
               <v-text-field
                 v-on="listeners"
                 v-bind="attrs"
                 filled
-                v-model="form.email"
+                v-model="form.email_main_domain"
                 type="email"
                 :append-icon="'mdi-email'"
               ></v-text-field>
@@ -93,17 +93,17 @@
         </v-col>
 
         <v-col cols="12" md="6" class="py-0 my-0">
-          <form-group name="major_id" attribute="major_id">
+          <form-group name="sector_id" attribute="sector_id">
             <template slot-scope="{ attrs, listeners }">
               <v-autocomplete
                 :loading="loadingMajors"
-                :items="majors"
+                :items="sectors"
                 item-text="name"
                 item-value="id"
                 v-bind="attrs"
                 v-on="listeners"
                 filled
-                v-model="form.major_id"
+                v-model="form.sector_id"
               ></v-autocomplete>
             </template>
           </form-group>
@@ -272,21 +272,21 @@ export default {
     return {
       showPassword: false,
       form: {
-        email: '',
+        email_main_domain: '',
         password: '',
         country_id: '',
         city_id: '',
-        major_id: '',
+        sector_id: '',
         commercial_file: '',
         hear_by_id: '',
-        foundation_name: '',
+        company_name: '',
         phone: '',
         working_type: '',
         address: '',
         description: '',
         members_count: '',
       },
-      majors: [],
+      sectors: [],
       hearByItems: [],
       countires: [],
       cities: [],
@@ -378,10 +378,10 @@ export default {
       this.$axios.get('/general/majors').then((res) => {
         const { data } = res.data
         this.loadingMajors = false
-        this.majors = data.map((major) => {
+        this.sectors = data.map((sector) => {
           return {
-            id: major.id,
-            name: major.name[this.$i18n.locale],
+            id: sector.id,
+            name: sector.name[this.$i18n.locale],
           }
         })
       })
@@ -440,7 +440,7 @@ export default {
 
   validations: {
     form: {
-      email: {
+      email_main_domain: {
         required,
         email,
       },
@@ -454,7 +454,7 @@ export default {
         required,
       },
 
-      major_id: {
+      sector_id: {
         required,
       },
       commercial_file: {
@@ -463,7 +463,7 @@ export default {
       hear_by_id: {
         required,
       },
-      foundation_name: {
+      company_name: {
         required,
       },
       phone: {

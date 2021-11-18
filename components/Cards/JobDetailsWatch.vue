@@ -168,6 +168,36 @@
                 </p>
               </article>
             </v-col>
+              
+          </v-row>
+          <v-row no-gutters>
+               <v-col
+              lg="3"
+              md="4"
+              sm="6"
+              cols="12"
+              class="d-flex align-center my-3"
+            >
+              <img
+                class="mx-1"
+                :src="require('@/assets/images/job/click.png')"
+                width="30px"
+                alt="photo"
+                v-if="$auth.user.type === 'COMPANY'"
+              />
+              <article class="mx-2">
+                <p class="color-gray mb-0" v-if="$auth.user.type === 'COMPANY'">
+                  <small>{{ $t('applicants_num') }}</small>
+                </p>
+                <p class="mb-0" v-if="$auth.user.type === 'COMPANY'">
+                  <small
+                    ><strong>{{
+                      $t(`${this.job.employees_Count || '0'}`)
+                    }}</strong></small
+                  >
+                </p>
+              </article>
+            </v-col>
           </v-row>
         </v-col>
 
@@ -175,10 +205,7 @@
           <h3 class="color-primary mb-4">{{ $t('requirements') }}</h3>
           <p class="mb-0" v-html="job.description || ''"></p>
         </v-col>
-        <v-col cols="12" class="my-5">
-          <h3 class="color-primary mb-4">{{ $t('applicants_num') }}</h3>
-          <p class="mb-0" v-html="job.employeesCount || ''"></p>
-        </v-col>
+        
       </v-row>
     </v-card>
     <v-dialog max-width="700" v-model="dialog">

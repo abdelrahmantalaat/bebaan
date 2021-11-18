@@ -28,7 +28,7 @@
                 $t(`${job.working_type || ''}`)
               }}</v-chip>
             </h3>
-            <p v-if="job.show_company">
+            <p >
               {{ job.company ? job.company.foundation_name : '' }}
             </p>
             <p class="d-flex color-gray mb-2">

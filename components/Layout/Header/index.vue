@@ -117,7 +117,7 @@
           v-if="!$auth.loggedIn"
           :to="localePath('/login?type=COMPANY')"
         >
-          <span class="mt-1">{{ $t('For business owners') }}</span>
+          <span class="mt-1">{{ $t('Company registration') }}</span>
         </v-btn>
         <v-menu
           v-if="$auth.loggedIn"

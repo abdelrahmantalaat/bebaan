@@ -185,7 +185,7 @@ export default {
       loadingBtn: false,
       form: {
         job_title: '',
-        job_role_title: '',
+        // job_role_title: '',
         level: '',
         major_id: '',
         country_id: '',
