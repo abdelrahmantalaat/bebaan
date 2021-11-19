@@ -21,10 +21,10 @@
                 <article>
                   <h3>{{ item.title[$i18n.locale] || '' }}</h3>
                   <p v-html="item.note[$i18n.locale] || ''"></p>
-                  <v-row>
+                  <!-- <v-row>
                     <v-col md="12">
                            <v-btn
-                            :href="item.file && item.file[0].file"
+                            :href="item.file"
                             
                             height="54px"
                             color="#fff"
@@ -35,7 +35,7 @@
                             <span class="mx-2">{{ $t('law_file') }}</span>
                           </v-btn>
                     </v-col>
-                  </v-row>
+                  </v-row> -->
                 </article>
               </v-card>
             </v-col>

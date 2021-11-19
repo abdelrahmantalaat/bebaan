@@ -142,6 +142,7 @@
   "law_file":"Download File",
   "foundation_name": "Foundation Name",
   "address": "Address",
+  "seen":"seen",
   "working_type": "Working Type",
   "members_count": "Members Count",
   "success_message": "Request Submitted Successfully",

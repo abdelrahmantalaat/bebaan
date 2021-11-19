@@ -65,11 +65,32 @@
               </v-radio-group>
             </v-expansion-panel-content>
           </v-expansion-panel>
-
+           <v-expansion-panel v-if="isUser">
+             <v-expansion-panel-header class="font-bold">
+              {{ $t('sectors') }}
+            </v-expansion-panel-header>
+             <v-expansion-panel-content class="transparency">
+              <v-checkbox
+                hide-details
+                :label="$t('all')"
+                v-model="selectMajors"
+                @change="filterAll('sector', majors)"
+              ></v-checkbox>
+              <v-checkbox
+                v-for="(sector, index) in sectors"
+                :key="index"
+                :label="sector.name"
+                :value="sector.value"
+                v-model="form.sector"
+                @change="handleMultiFitler('sector', 'selectsectors')"
+              ></v-checkbox>
+            </v-expansion-panel-content>
+             </v-expansion-panel>
           <v-expansion-panel v-if="isUser">
             <v-expansion-panel-header class="font-bold">
               {{ $t('majors') }}
             </v-expansion-panel-header>
+           
             <v-expansion-panel-content class="transparency">
               <v-checkbox
                 hide-details
@@ -231,6 +252,7 @@ export default {
         salary_from: '',
         salary_to: '',
         major: [],
+        sectors:[],
         working_types: [],
         levels: [],
       },
@@ -239,6 +261,7 @@ export default {
       countries: [],
       cities: [],
       majors: [],
+      sectors:[],
       selectMajors: false,
       selectWokringTypes: false,
       selectLevels: false,
@@ -281,6 +304,14 @@ export default {
       const res = await this.$axios.get('/general/majors')
       const { data } = res.data
       this.majors = data.map((el) => ({
+        value: el.id,
+        name: el.name[this.$i18n.locale],
+      }))
+    },
+    async getSectors() {
+      const res = await this.$axios.get('/general/sectors')
+      const { data } = res.data
+      this.sectors = data.map((el) => ({
         value: el.id,
         name: el.name[this.$i18n.locale],
       }))

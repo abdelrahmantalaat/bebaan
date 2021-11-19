@@ -41,6 +41,7 @@
               نسبة اكتمال البروفايل :
               {{ employee.completedProfileRatio }} %</p>
           </div>
+        
         </v-col>
         <v-col cols="12" md="5">
           <v-btn
@@ -74,6 +75,7 @@ export default {
       dialog: false,
     }
   },
+  
 }
 </script>
 

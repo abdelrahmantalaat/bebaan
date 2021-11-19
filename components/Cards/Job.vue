@@ -29,7 +29,8 @@
               }}</v-chip>
             </h3>
             <p >
-              {{ job.company ? job.company.foundation_name : '' }}
+              {{   job.show_company==1 ? job.company.foundation_name : ''  }}
+              
             </p>
             <p class="d-flex color-gray mb-2">
               <v-icon small class="mb-2" color="#a1a1a1">mdi-map-marker</v-icon
@@ -74,8 +75,10 @@ export default {
     },
   },
   methods: {
+    
     showJob() {
       this.$emit('showJob', this.job)
+      console.log(this.job.show_company)
     },
     onDeleteJob() {
       this.$emit('jobDelete')

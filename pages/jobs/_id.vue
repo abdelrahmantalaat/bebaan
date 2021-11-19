@@ -43,7 +43,6 @@
 <script>
 export default {
   name: 'JobDetails',
-
   data() {
     return {
       job: {},
@@ -59,7 +58,6 @@ export default {
   //     params: { ...query },
   //   })
   //   const { data } = res.data
-
   //   return {
   //     employees: data,
   //   }
@@ -116,4 +114,3 @@ export default {
   },
 }
 </script>
-

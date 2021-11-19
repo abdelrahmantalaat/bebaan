@@ -11,7 +11,7 @@
                 $t(`${job.working_type || ''}`)
               }}</v-chip>
             </h3>
-            <p>{{ job.company ? job.company.foundation_name : '' }}</p>
+            <p>{{ job.show_company==1 ? job.company.foundation_name : '' }}</p>
             <p class="d-flex color-gray mb-2">
               <v-icon small class="mb-2" color="#a1a1a1">mdi-map-marker</v-icon
               ><span class="mx-2">{{
@@ -192,7 +192,7 @@
                 <p class="mb-0" v-if="$auth.user.type === 'COMPANY'">
                   <small
                     ><strong>{{
-                      $t(`${this.job.employees_Count || '0'}`)
+                      $t(`${this.job.employees_count || '0'}`)
                     }}</strong></small
                   >
                 </p>
@@ -282,7 +282,6 @@ export default {
       default: () => {},
     },
   },
-
   methods: {
     close() {
       this.$emit('close')
@@ -292,6 +291,7 @@ export default {
       const { data } = res.data
       this.cvs = data.cv
     },
+    
      previewFiles: function(files) {
       this.cv = files
     },
@@ -319,6 +319,7 @@ export default {
       if (this.$auth.user.type === 'USER') {
         this.getProfile()
       }
+      
     },
   },
 }

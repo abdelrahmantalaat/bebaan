@@ -38,6 +38,10 @@
               {{ $t('completed_profile_ratio') }}
               {{  employee.user.completedProfileRatio }} %</p>
           </div>
+            <h4 v-if="employee.user.company_seen==true">
+               {{ $t('seen') }}
+               <img :src="require('@/assets/images/check.png')" style="width:20px; height:20px;margin: 0 10px;" alt="">
+            </h4>
         </v-col>
         <v-col cols="12" md="6">
           <v-btn
@@ -48,6 +52,7 @@
             class="radius-10 text-capitalize"
             color="primary"
             :disabled="employee.cv == ''"
+            @click="employee.user.company_seen==true"
           >
             <strong class="mt-1"
               ><small>{{ $t('download_cv') }}</small></strong
@@ -85,6 +90,12 @@ export default {
       dialog: false,
     }
   },
+  methods:{
+    // shownCv(){
+    //   this.employee.user.company_seen==true
+    //   console.log('seen')
+    // }
+  }
 }
 </script>
 
