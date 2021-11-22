@@ -96,7 +96,7 @@
           <form-group name="sector_id" attribute="sector_id">
             <template slot-scope="{ attrs, listeners }">
               <v-autocomplete
-                :loading="loadingMajors"
+                :loading="loadingSectors"
                 :items="sectors"
                 item-text="name"
                 item-value="id"
@@ -374,10 +374,10 @@ export default {
         this.loadingBtn = false
       }
     },
-    getMajors() {
-      this.$axios.get('/general/majors').then((res) => {
+    getSectors() {
+      this.$axios.get('/general/sectors').then((res) => {
         const { data } = res.data
-        this.loadingMajors = false
+        this.loadingSectors = false
         this.sectors = data.map((sector) => {
           return {
             id: sector.id,
@@ -430,7 +430,7 @@ export default {
   watch: {
     $route: {
       handler({ query }) {
-        this.getMajors()
+        this.getSectors()
         this.getCountires()
         this.getHearingBy()
       },

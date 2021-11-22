@@ -28,8 +28,9 @@
                 $t(`${job.working_type || ''}`)
               }}</v-chip>
             </h3>
+            
             <p >
-              {{   job.show_company==1 ? job.company.foundation_name : ''  }}
+              {{ job.show_company==1 ? job.company.foundation_name:'' }}
               
             </p>
             <p class="d-flex color-gray mb-2">
@@ -78,11 +79,13 @@ export default {
     
     showJob() {
       this.$emit('showJob', this.job)
-      console.log(this.job.show_company)
+      
     },
+    
     onDeleteJob() {
       this.$emit('jobDelete')
     },
   },
+  
 }
 </script>

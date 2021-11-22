@@ -73,8 +73,8 @@
               <v-checkbox
                 hide-details
                 :label="$t('all')"
-                v-model="selectMajors"
-                @change="filterAll('sector', majors)"
+                v-model="selectSectors"
+                @change="filterAll('sector', sectors)"
               ></v-checkbox>
               <v-checkbox
                 v-for="(sector, index) in sectors"
@@ -82,7 +82,7 @@
                 :label="sector.name"
                 :value="sector.value"
                 v-model="form.sector"
-                @change="handleMultiFitler('sector', 'selectsectors')"
+                @change="handleMultiFitler('sector', 'selectSectors')"
               ></v-checkbox>
             </v-expansion-panel-content>
              </v-expansion-panel>
@@ -252,7 +252,7 @@ export default {
         salary_from: '',
         salary_to: '',
         major: [],
-        sectors:[],
+        sector:[],
         working_types: [],
         levels: [],
       },
@@ -263,6 +263,7 @@ export default {
       majors: [],
       sectors:[],
       selectMajors: false,
+      selectSectors:false,
       selectWokringTypes: false,
       selectLevels: false,
     }
@@ -276,6 +277,7 @@ export default {
       this.$auth.user.type === 'USER'
     ) {
       this.getMajors()
+      this.getSectors()
     }
   },
   methods: {
@@ -421,6 +423,8 @@ export default {
             if (key == 'job_title' || key == 'sex') {
               this.form[key] = query[key]
             } else if (key === 'major') {
+              this.form[key] = query[key].split(',').map((el) => Number(el))
+              } else if (key === 'sector') {
               this.form[key] = query[key].split(',').map((el) => Number(el))
             } else if (key === 'working_types' || key === 'levels') {
               this.form[key] = query[key].split(',')
