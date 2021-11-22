@@ -47,6 +47,7 @@
                       v-model="form.name"
                        v-on="listeners"
                       v-bind="attrs"
+                      v-if="!$auth.loggedIn"
                       :label="$t('name')"
                     ></v-text-field>
                       <v-text-field
@@ -56,6 +57,7 @@
                       v-on="listeners"
                       v-bind="attrs"
                       type="number"
+                      v-if="!$auth.loggedIn"
                       :label="$t('phone')"
                     ></v-text-field>
               <v-select

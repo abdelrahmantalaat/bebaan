@@ -52,7 +52,7 @@
             class="radius-10 text-capitalize"
             color="primary"
             :disabled="employee.cv == ''"
-            @click="employee.user.company_seen==true"
+            @click="shownCv()"
           >
             <strong class="mt-1"
               ><small>{{ $t('download_cv') }}</small></strong
@@ -88,14 +88,19 @@ export default {
   data() {
     return {
       dialog: false,
+      company_seen:false,
     }
   },
   methods:{
-    // shownCv(){
-    //   this.employee.user.company_seen==true
-    //   console.log('seen')
-    // }
-  }
+    shownCv(){
+      this.company_seen==true
+     this.$axios
+          .post(`/employer/subscribe-job`, {
+            company_seen: this.company_seen,
+           
+          })
+  },
+}
 }
 </script>
 
