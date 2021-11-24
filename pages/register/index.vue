@@ -60,6 +60,7 @@
               </v-row>
             </v-col>
           </section>
+          
         </v-col>
       </v-row>
     </v-container>
@@ -67,10 +68,17 @@
 </template>
 
 <script>
+
+
 export default {
   name: 'Register',
   layout: 'registeration',
   middleware: ['isAuth'],
+  data(){
+    return{
+      showModal:false,
+    }
+  }
 }
 </script>
 

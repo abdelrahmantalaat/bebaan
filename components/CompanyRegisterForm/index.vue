@@ -28,13 +28,13 @@
           </form-group>
         </v-col>
         <v-col cols="12" md="6" class="py-0 my-0">
-          <form-group name="email_main_domain" attribute="email_main_domain">
+          <form-group name="email_main_domain" attribute="email">
             <template slot-scope="{ attrs, listeners }">
               <v-text-field
                 v-on="listeners"
                 v-bind="attrs"
                 filled
-                v-model="form.email_main_domain"
+                v-model="form.email"
                 type="email"
                 :append-icon="'mdi-email'"
               ></v-text-field>
@@ -264,15 +264,13 @@
 
 <script>
 import { required, email } from 'vuelidate/lib/validators'
-
 export default {
   name: 'CompanyRegisterForm',
-
   data() {
     return {
       showPassword: false,
       form: {
-        email_main_domain: '',
+        email: '',
         password: '',
         country_id: '',
         city_id: '',
@@ -355,7 +353,6 @@ export default {
     async handleSubmit() {
       try {
         this.loadingBtn = true
-
         const formData = new FormData()
         for (const key in this.form) {
           if (this.form[key] !== '') {
@@ -437,7 +434,6 @@ export default {
       immediate: true,
     },
   },
-
   validations: {
     form: {
       email_main_domain: {
@@ -453,7 +449,6 @@ export default {
       city_id: {
         required,
       },
-
       sector_id: {
         required,
       },
@@ -485,4 +480,3 @@ export default {
   },
 }
 </script>
-
