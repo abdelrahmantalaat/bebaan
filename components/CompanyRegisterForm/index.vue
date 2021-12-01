@@ -3,13 +3,13 @@
     <v-form @submit.prevent="handleSubmit">
       <v-row>
         <v-col cols="12" md="6" class="py-0 my-0">
-          <form-group name="company_name" attribute="company_name">
+          <form-group name="foundation_name" attribute="foundation_name">
             <template slot-scope="{ attrs, listeners }">
               <v-text-field
                 v-bind="attrs"
                 v-on="listeners"
                 filled
-                v-model="form.company_name"
+                v-model="form.foundation_name"
               ></v-text-field>
             </template>
           </form-group>
@@ -28,13 +28,13 @@
           </form-group>
         </v-col>
         <v-col cols="12" md="6" class="py-0 my-0">
-          <form-group name="email_main_domain" attribute="email">
+          <form-group name="email_main_domain" attribute="email_main_domain">
             <template slot-scope="{ attrs, listeners }">
               <v-text-field
                 v-on="listeners"
                 v-bind="attrs"
                 filled
-                v-model="form.email"
+                v-model="form.email_main_domain"
                 type="email"
                 :append-icon="'mdi-email'"
               ></v-text-field>
@@ -270,14 +270,14 @@ export default {
     return {
       showPassword: false,
       form: {
-        email: '',
+        email_main_domain: '',
         password: '',
         country_id: '',
         city_id: '',
         sector_id: '',
         commercial_file: '',
         hear_by_id: '',
-        company_name: '',
+        foundation_name: '',
         phone: '',
         working_type: '',
         address: '',
@@ -289,6 +289,7 @@ export default {
       countires: [],
       cities: [],
       loadingMajors: true,
+      loadingSectors:true,
       loadingCountries: true,
       loadingCities: false,
       disabledCity: true,
@@ -458,7 +459,7 @@ export default {
       hear_by_id: {
         required,
       },
-      company_name: {
+      foundation_name: {
         required,
       },
       phone: {

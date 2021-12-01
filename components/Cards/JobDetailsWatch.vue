@@ -170,7 +170,7 @@
             </v-col>
               
           </v-row>
-          <v-row no-gutters>
+          <v-row no-gutters  v-if="this.$auth.loggedIn">
                <v-col
               lg="3"
               md="4"
@@ -228,14 +228,17 @@
                     filled
                     v-model="form.cv_id"
                   ></v-autocomplete>
-                 <div>
-                   <p for="" style="font-weight:bold;">
-                     {{ $t('another_CV') }}
-                   </p>
-                   <input type="file" style="margin-bottom:10px;" id="file" class="custom-file-input" 
-                   :change="previewFiles(this.files)" multiple>
-                 </div>
-                  
+                 
+                  <form-group name="another_CV" attribute="another_CV">
+            <template slot-scope="{ attrs, listeners }">
+              <LazyFileUpload
+                @fileSelected="onFileSelect"
+                v-bind="attrs"
+                v-on="listeners"
+                v-model="form.another_CV"
+              />
+                         </template>
+                       </form-group>
              
                   <v-textarea
                     v-model="form.message"
@@ -269,11 +272,13 @@ export default {
       menu: false,
       dialog: false,
       loadingBtn: false,
+      // files:[],
       form: {
         job_id: '',
+        another_CV:''
       },
       cvs: [],
-      cv:[],
+      
     }
   },
   props: {
@@ -292,8 +297,8 @@ export default {
       this.cvs = data.cv
     },
     
-     previewFiles: function(files) {
-      this.cv = files
+    onFileSelect({ file }) {
+      this.form.another_CV = file
     },
     sendMessage() {
       this.loadingBtn = true
@@ -302,7 +307,8 @@ export default {
           .post(`/employer/subscribe-job`, {
             job_id: this.form.job_id,
             cv_id: this.form.cv_id,
-            cv:this.cv,
+            cv:this.form.another_CV,
+            
             message: this.form.message,
           })
           .then((res) => {

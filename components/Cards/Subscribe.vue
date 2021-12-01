@@ -95,8 +95,8 @@ export default {
     shownCv(){
       this.company_seen==true
      this.$axios
-          .post(`/employer/subscribe-job`, {
-            company_seen: this.company_seen,
+          .post(`/company/employee/${this.employee.user.id}`, {
+            company_seen:this.company_seen,
            
           })
   },

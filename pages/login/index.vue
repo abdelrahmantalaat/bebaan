@@ -105,7 +105,17 @@
         </v-row>
       </v-container>
     </LazyCustomHeader>
+    <!-- <div class="modal-overlay" v-show="showModal">
+    <div class="modal">
+    <h2>{{ $t('verfication_code') }}</h2>
+      <input class="verfiy_input" type="text" v-model="verfiy">
+      
+      <button>{{ $t('register') }}</button>
+    </div>
+    
+  </div> -->
   </main>
+  
 </template>
 
 <script>
@@ -117,6 +127,8 @@ export default {
   data() {
     return {
       showPassword: false,
+      // showModal:false,
+      verfiy:'',
       form: {
         email: '',
         password: '',
@@ -128,12 +140,17 @@ export default {
     handleLogin() {
       this.$auth
         .loginWith('local', { data: this.form })
-        .then(() => {
+        .then((response) => {
+          // this.showModal=true
           this.$router.push(this.localePath('/'))
+          
+          // console.log(response)
         })
         .catch((err) => {
           console.log(err)
+          
         })
+        
     },
     googleLogin() {
       this.$auth.loginWith('google')
@@ -183,4 +200,64 @@ export default {
   },
 }
 </script>
+<style scoped>
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  background-color: #000000da;
+}
+.verfiy_input{
+    width: 80%;
+    height: 50px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    margin: 20px 0 0 0 ;
+}
+.modal {
+  text-align: center;
+  background-color: white;
+  height: 400px;
+  width: 400px;
+  margin-top: 10%;
+  padding: 80px 0;
+  border-radius: 20px;
+}
+.close {
+  margin: 10% 0 0 16px;
+  cursor: pointer;
+}
 
+.close-img {
+  width: 25px;
+}
+
+.check {
+  width: 150px;
+}
+
+h6 {
+  font-weight: 500;
+  font-size: 28px;
+  margin: 20px 0;
+}
+
+p {
+  font-size: 16px;
+  margin: 20px 0;
+}
+
+button {
+  background-color: #000;
+  width: 150px;
+  height: 40px;
+  color: white;
+  font-size: 14px;
+  border-radius: 16px;
+  margin-top: 50px;
+}
+</style>

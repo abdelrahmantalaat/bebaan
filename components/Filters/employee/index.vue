@@ -4,7 +4,7 @@
       <v-col cols="12">
         <h2>{{ $t('fitler_result') }}</h2>
       </v-col>
-      <v-col cols="12" v-if="isUser">
+      <v-col cols="12" >
         <p class="font-bold">{{ $t('job') }}</p>
         <v-text-field
           v-model="form.job_title"
@@ -65,7 +65,9 @@
               </v-radio-group>
             </v-expansion-panel-content>
           </v-expansion-panel>
-           <v-expansion-panel v-if="isUser">
+           
+        
+           <v-expansion-panel >
              <v-expansion-panel-header class="font-bold">
               {{ $t('sectors') }}
             </v-expansion-panel-header>
@@ -74,19 +76,19 @@
                 hide-details
                 :label="$t('all')"
                 v-model="selectSectors"
-                @change="filterAll('sector', sectors)"
+                @change="filterAll('sectors', sectors)"
               ></v-checkbox>
               <v-checkbox
                 v-for="(sector, index) in sectors"
                 :key="index"
                 :label="sector.name"
                 :value="sector.value"
-                v-model="form.sector"
-                @change="handleMultiFitler('sector', 'selectSectors')"
+                v-model="form.sectors"
+                @change="handleMultiFitler('sectors', 'selectSectors')"
               ></v-checkbox>
             </v-expansion-panel-content>
              </v-expansion-panel>
-          <v-expansion-panel v-if="isUser">
+          <v-expansion-panel >
             <v-expansion-panel-header class="font-bold">
               {{ $t('majors') }}
             </v-expansion-panel-header>
@@ -96,19 +98,20 @@
                 hide-details
                 :label="$t('all')"
                 v-model="selectMajors"
-                @change="filterAll('major', majors)"
+                @change="filterAll('majors', majors)"
               ></v-checkbox>
               <v-checkbox
                 v-for="(major, index) in majors"
                 :key="index"
                 :label="major.name"
                 :value="major.value"
-                v-model="form.major"
-                @change="handleMultiFitler('major', 'selectMajors')"
+                v-model="form.majors"
+                @change="handleMultiFitler('majors', 'selectMajors')"
               ></v-checkbox>
             </v-expansion-panel-content>
           </v-expansion-panel>
-          <v-expansion-panel v-if="isUser">
+         
+          <v-expansion-panel >
             <v-expansion-panel-header class="font-bold">
               {{ $t('job_type') }}
             </v-expansion-panel-header>
@@ -131,7 +134,7 @@
               ></v-checkbox>
             </v-expansion-panel-content>
           </v-expansion-panel>
-          <v-expansion-panel v-if="isUser">
+          <v-expansion-panel >
             <v-expansion-panel-header class="font-bold">
               {{ $t('levels') }}
             </v-expansion-panel-header>
@@ -152,6 +155,7 @@
               ></v-checkbox>
             </v-expansion-panel-content>
           </v-expansion-panel>
+         
           <v-expansion-panel :style="filterStyle">
             <v-expansion-panel-header class="font-bold">
               {{ $t('sex') }}
@@ -251,8 +255,8 @@ export default {
         experience_years: '',
         salary_from: '',
         salary_to: '',
-        major: [],
-        sector:[],
+        majors: [],
+        sectors:[],
         working_types: [],
         levels: [],
       },
@@ -271,14 +275,16 @@ export default {
   mounted() {
     this.getCountires()
     this.setActivePanels()
-    if (
-      this.$auth.loggedIn &&
-      this.$auth.user &&
-      this.$auth.user.type === 'USER'
-    ) {
-      this.getMajors()
-      this.getSectors()
-    }
+    this.getMajors()
+    this.getSectors()
+    // if (
+    //   this.$auth.loggedIn &&
+    //   this.$auth.user &&
+    //   this.$auth.user.type === 'USER'
+    // ) {
+    //   this.getMajors()
+    //   this.getSectors()
+    // }
   },
   methods: {
     filterAll(filterName, dataValue) {
@@ -377,22 +383,22 @@ export default {
   },
   computed: {
     filterStyle() {
-      if (!this.isUser) {
-        return { backgroundColor: '#f7fbfe' }
-      } else {
-        return { backgroundColor: '' }
-      }
-    },
-    isUser() {
-      if (
-        this.$auth.loggedIn &&
-        this.$auth.user &&
-        this.$auth.user.type === 'USER'
-      ) {
-        return true
-      } else {
-        return false
-      }
+    //   if (!this.isUser) {
+    //     return { backgroundColor: '#f7fbfe' }
+    //   } else {
+    //     return { backgroundColor: '' }
+    //   }
+    // },
+    // isUser() {
+    //   if (
+    //     this.$auth.loggedIn &&
+    //     this.$auth.user &&
+    //     this.$auth.user.type === 'USER'
+    //   ) {
+    //     return true
+    //   } else {
+    //     return false
+    //   }
     },
     genders() {
       return [
@@ -422,9 +428,9 @@ export default {
           if (query[key]) {
             if (key == 'job_title' || key == 'sex') {
               this.form[key] = query[key]
-            } else if (key === 'major') {
+            } else if (key === 'majors') {
               this.form[key] = query[key].split(',').map((el) => Number(el))
-              } else if (key === 'sector') {
+              } else if (key === 'sectors') {
               this.form[key] = query[key].split(',').map((el) => Number(el))
             } else if (key === 'working_types' || key === 'levels') {
               this.form[key] = query[key].split(',')

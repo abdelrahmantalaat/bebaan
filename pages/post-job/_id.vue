@@ -286,12 +286,15 @@
                           :true-value="1"
                           dense
                           filled
+                          
                           v-model="form.show_company"
                           v-on="listeners"
                           v-bind="attrs"
+                          
                         ></v-checkbox>
                       </template>
                     </form-group>
+                    
                   </v-col>
                   <v-col cols="12">
                     <v-btn
@@ -435,7 +438,7 @@ export default {
         level: '',
         working_type: '',
         start_date: '',
-        end_date: '',
+        end_date:'',
         sex: '',
         experience_years: 0,
         country_id: '',
@@ -443,7 +446,7 @@ export default {
         description: '',
         lat: '',
         lng: '',
-        show_company: 0,
+        show_company: 1,
         pay_type: '',
         expected_salary: '',
         invoice_image: '',
