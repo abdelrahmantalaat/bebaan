@@ -1,7 +1,6 @@
 <template>
   <section>
     <v-card color="mx-1 pa-5 job-card job-card__details">
-      
       <v-row no-gutters>
         <v-col cols="12" sm="10">
           <article>
@@ -11,7 +10,9 @@
                 $t(`${job.working_type || ''}`)
               }}</v-chip>
             </h3>
-            <p>{{ job.show_company==1 ? job.company.foundation_name : '' }}</p>
+            <p>
+              {{ job.show_company == 1 ? job.company.foundation_name : '' }}
+            </p>
             <p class="d-flex color-gray mb-2">
               <v-icon small class="mb-2" color="#a1a1a1">mdi-map-marker</v-icon
               ><span class="mx-2">{{
@@ -21,15 +22,16 @@
                 job.country ? job.country.name[$i18n.locale] : ''
               }}</span>
             </p>
+
             <p class="d-flex color-gray">
               <v-icon small class="mb-2" color="#a1a1a1">mdi-clock</v-icon
               ><span class="mx-2">{{ job ? job.published_at : '' }}</span>
             </p>
             <p class="d-flex color-gray">
-         
+              <span>{{ $t('expected_salary') }} : </span>
+              {{ job.expected_salary }}
             </p>
           </article>
-          
         </v-col>
         <!-- <v-col cols="4" :sm="job.subscribed ? '4' : '2'">
           <img
@@ -44,14 +46,17 @@
             sm="2"
             v-if="!job.subscribed && $auth.user.type == 'USER'"
           >
-               
             <v-btn width="100%" color="primary" @click="onDialogOpen(job)">{{
               $t('apply_for_job')
             }}</v-btn>
-            <a :href="`whatsapp://send?text= check this https://bebaan.net${this.$router.currentRoute.path}` " target="_blanc"> <img
-               
-                :src="require('@/assets/images/mainwhatsapp.svg')" alt=""
-              /></a>
+            <a
+              :href="
+                `whatsapp://send?text= check this https://bebaan.net${this.$router.currentRoute.path}`
+              "
+              target="_blanc"
+            >
+              <img :src="require('@/assets/images/mainwhatsapp.svg')" alt=""
+            /></a>
           </v-col>
           <v-col cols="8" sm="2" v-else-if="$auth.user.type == 'COMPANY'">
           </v-col>
@@ -168,10 +173,9 @@
                 </p>
               </article>
             </v-col>
-              
           </v-row>
-          <v-row no-gutters  v-if="this.$auth.loggedIn">
-               <v-col
+          <v-row no-gutters v-if="this.$auth.loggedIn">
+            <v-col
               lg="3"
               md="4"
               sm="6"
@@ -205,7 +209,6 @@
           <h3 class="color-primary mb-4">{{ $t('requirements') }}</h3>
           <p class="mb-0" v-html="job.description || ''"></p>
         </v-col>
-        
       </v-row>
     </v-card>
     <v-dialog max-width="700" v-model="dialog">
@@ -228,18 +231,26 @@
                     filled
                     v-model="form.cv_id"
                   ></v-autocomplete>
-                 
-                  <form-group name="another_CV" attribute="another_CV">
-            <template slot-scope="{ attrs, listeners }">
-              <LazyFileUpload
-                @fileSelected="onFileSelect"
-                v-bind="attrs"
-                v-on="listeners"
-                v-model="form.another_CV"
-              />
-                         </template>
-                       </form-group>
-             
+
+                  <!-- <form-group name="another_CV" attribute="another_CV">
+                    <template slot-scope="{ attrs, listeners }">
+                      <LazyFileUpload
+                        @fileSelected="onFileSelect"
+                        v-bind="attrs"
+                        v-on="listeners"
+                        v-model="form.another_CV"
+                        
+                      />
+                    </template>
+                  </form-group> -->
+                  
+          <LazyFileUpload
+            @fileSelected="onFileSelect"
+            :label="$t('another_CV')"
+            v-model="form.another_CV"
+          />
+        
+
                   <v-textarea
                     v-model="form.message"
                     no-resize
@@ -275,10 +286,10 @@ export default {
       // files:[],
       form: {
         job_id: '',
-        another_CV:''
+        another_CV: '',
+        message: '',
       },
       cvs: [],
-      
     }
   },
   props: {
@@ -296,7 +307,7 @@ export default {
       const { data } = res.data
       this.cvs = data.cv
     },
-    
+
     onFileSelect({ file }) {
       this.form.another_CV = file
     },
@@ -307,11 +318,11 @@ export default {
           .post(`/employer/subscribe-job`, {
             job_id: this.form.job_id,
             cv_id: this.form.cv_id,
-            cv:this.form.another_CV,
-            
+            cv: this.form.another_CV,
+
             message: this.form.message,
           })
-          .then((res) => {
+          .then(res => {
             this.dialog = false
             this.form = {}
             this.$emit('successfullyApplied', res.data)
@@ -325,7 +336,6 @@ export default {
       if (this.$auth.user.type === 'USER') {
         this.getProfile()
       }
-      
     },
   },
 }

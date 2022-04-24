@@ -55,6 +55,7 @@
               link.title
             }}</nuxt-link>
           </v-list-item-action>
+          
         </template>
       </v-list-item>
       <v-menu
@@ -94,8 +95,19 @@
               {{ $t('blog') }}
             </v-list-item-title>
           </v-list-item>
+          
         </v-list>
+        
       </v-menu>
+      <!-- <v-list-item-action
+            v-if="link.type === 'none'"
+            class="mx-3"
+            :key="index"
+          >
+            <nuxt-link :style="linkStyle" exact :to="localePath(link.to)">{{
+              link.title
+            }}</nuxt-link>
+          </v-list-item-action> -->
     </v-list>
   </v-toolbar>
 </template>
@@ -176,6 +188,12 @@ export default {
               ? this.$auth.user.type
               : '',
         },
+        // {
+        //   title: this.$t('busniss-platform'),
+        //   to: '/busniss-platform',
+        //   type:'none'
+            
+        // },
         // {
         //   title: this.$t('Business platform'),
         //   to: '/categories',

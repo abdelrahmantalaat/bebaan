@@ -248,6 +248,8 @@
   "all": "الكل",
   "send_message": "مراسلة",
   "filter": "بحث",
+  "Purchase_orders":"طلبات الشراء",
+  "orders_mangment":"ادارة الطلبات",
   "reset": "مسح البحث",
   "message": "رسالتك",
   "active_jobs": "الوظائف الشاغرة",

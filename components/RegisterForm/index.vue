@@ -77,6 +77,23 @@
           </form-group>
         </v-col>
         <v-col cols="12" md="6" class="py-0 my-0">
+          <form-group name="nationality_id" attribute="nationality_id">
+            <template slot-scope="{ attrs, listeners }">
+              <v-autocomplete
+                :loading="loadingnationalities"
+                :items="nationalities"
+                item-text="name"
+                item-value="id"
+                v-bind="attrs"
+                v-on="listeners"
+                filled
+                v-model="form.nationality_id"
+                @change="getnationalities"
+              ></v-autocomplete>
+            </template>
+          </form-group>
+        </v-col>
+        <v-col cols="12" md="6" class="py-0 my-0">
           <form-group name="city_id" attribute="city_id">
             <template slot-scope="{ attrs, listeners }">
               <v-autocomplete
@@ -230,6 +247,7 @@ export default {
         email: '',
         password: '',
         country_id: '',
+        nationality_id:'',
         city_id: '',
         // job_title: '',
         major_id: '',
@@ -238,10 +256,12 @@ export default {
       },
       majors: [],
       countires: [],
+      nationalities:[],
       hearByItems: [],
       cities: [],
       loadingMajors: true,
       loadingCountries: true,
+      loadingnationalities:true,
       loadingCities: false,
       disabledCity: true,
       loadingBtn: false,
@@ -346,6 +366,16 @@ export default {
         }))
       })
     },
+    getnationalities() {
+      this.$axios.get('/general/nationalities').then((res) => {
+        const { data } = res.data
+        this.loadingnationalities = false
+        this.nationalities = data.map((el) => ({
+          id: el.id,
+          name: el.name[this.$i18n.locale],
+        }))
+      })
+    },
     getCities() {
       this.loadingCities = true
       this.$axios
@@ -376,6 +406,7 @@ export default {
         this.getMajors()
         this.getCountires()
         this.getHearingBy()
+        this.getnationalities()
       },
       immediate: true,
     },
@@ -397,6 +428,9 @@ export default {
         required,
       },
       country_id: {
+        required,
+      },
+      nationality_id:{
         required,
       },
       city_id: {

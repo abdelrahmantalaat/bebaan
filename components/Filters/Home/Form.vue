@@ -53,7 +53,7 @@
           height="56px"
           block
           large
-          class="primary text-capitalize"
+          class="primary text-capitalize green"
           @click="onSearchFilter"
         >
           <span class="font-bold">{{ btnText }}</span>

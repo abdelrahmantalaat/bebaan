@@ -16,6 +16,7 @@
             <p class="color-black">
               {{ job.company ? job.company.foundation_name : '' }}
             </p>
+            
             <p class="d-flex color-gray mb-2">
               <v-icon small class="mb-2" color="#a1a1a1">mdi-map-marker</v-icon
               ><span class="mx-2">{{

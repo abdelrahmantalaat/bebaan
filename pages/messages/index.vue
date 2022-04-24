@@ -93,6 +93,7 @@ export default {
     const { data } = res.data
     return {
       messages: data,
+      
     }
   },
   data() {

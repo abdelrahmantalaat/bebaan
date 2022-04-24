@@ -55,8 +55,9 @@
                     <v-col cols="12">
                       <v-row>
                         <v-col cols="6">
+                          <!-- profile.cv && profile.cv[0].file -->
                           <v-btn
-                            :href="profile.cv && profile.cv[0].file"
+                            :href="profile.cv[1].file"
                             target="_blank"
                             height="54px"
                             color="#fff"
@@ -74,7 +75,7 @@
                         </v-col>
                         <v-col cols="4" class="mx-auto">
                           <v-btn
-                            :href="profile.cv && profile.cv[0].file"
+                            :href="profile.cv[1].file"
                             width="61px"
                             height="54px"
                             color="#fff"
