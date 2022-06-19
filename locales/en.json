@@ -122,6 +122,8 @@
   "last_name": "Last Name",
   "hear_by_id": "Hearing By",
   "cv": "Cv File",
+  "add_another_cv":"Add another cv file",
+  "delete_cv": "Delete cv File",
   "country_id": "Country",
   "city_id": "City",
   "major_id": "Major",

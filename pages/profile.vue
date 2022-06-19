@@ -53,7 +53,49 @@
                       </template>
                     </v-list>
                     <v-col cols="12">
-                      <v-row>
+                      <v-row v-if="profile.cv[0].id == '0'">
+                        <v-dialog v-model="dialog" width="500">
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                              v-bind="attrs"
+                              v-on="on"
+                              height="54px"
+                              color="#fff"
+                              outlined
+                            >
+                              <span class="mx-2">{{
+                                $t('add_another_cv')
+                              }}</span>
+                            </v-btn>
+                          </template>
+
+                          <v-card>
+                            <v-container>
+                              <v-row>
+                                <v-col cols="12" md="8" class="mx-auto">
+                                  <v-card-text>
+                                    <v-form @submit.prevent="sendcv">
+                                      <LazyFileUpload
+                                        @fileSelected="onFileSelect"
+                                        :label="$t('another_CV')"
+                                        v-model="form.new_CV"
+                                      />
+                                      <v-btn
+                                        type="submit"
+                                        :disabled="form.new_CV === ''"
+                                        block
+                                        class="primary"
+                                        >{{ $t('send') }}</v-btn
+                                      >
+                                    </v-form>
+                                  </v-card-text>
+                                </v-col>
+                              </v-row>
+                            </v-container>
+                          </v-card>
+                        </v-dialog>
+                      </v-row>
+                      <v-row v-else>
                         <v-col cols="6">
                           <!-- profile.cv && profile.cv[0].file -->
                           <v-btn
@@ -89,7 +131,19 @@
                             />
                           </v-btn>
                         </v-col>
+                        <v-col cols="6">
+                          <!-- profile.cv && profile.cv[0].file -->
+                          <v-btn
+                            @click="delete_cv()"
+                            height="54px"
+                            color="#fff"
+                            outlined
+                          >
+                            <span class="mx-2">{{ $t('delete_cv') }}</span>
+                          </v-btn>
+                        </v-col>
                       </v-row>
+
                       <v-row>
                         <template v-for="(social, key) in socials">
                           <v-col v-if="social.link" cols="1" :key="key">
@@ -173,6 +227,11 @@ export default {
     return {
       socials: {},
       value: 25,
+      dialog: false,
+      
+      form:{
+       new_CV: '',
+      }
     }
   },
   computed: {
@@ -225,6 +284,29 @@ export default {
       immediate: true,
     },
   },
+  methods: {
+    delete_cv() {
+      this.$axios
+        .delete(`/user/delete-cv/${this.profile.cv[0].id}`)
+        .then(() => {
+          this.$router.push('/profile/info')
+        })
+    },
+    sendcv(cv) {
+      this.$axios
+        .post(`/user/upload-cv`, {
+          cv: this.form.new_CV,
+        })
+        .then(res => {
+          this.dialog = false
+          console.log(CV)
+          // this.$emit('successfullyAdded', res.data)
+        })
+    },
+    onFileSelect({ file }) {
+      this.form.new_CV = file
+      console.log(this.form.new_CV)
+    },
+  },
 }
 </script>
-
