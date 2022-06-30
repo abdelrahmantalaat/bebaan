@@ -144,10 +144,7 @@ export default {
           title: this.$t('search_jobs'),
           to: `/find-jobs`,
           type: 'none',
-          // type:
-          //   this.$auth.user && this.$auth.user.type === 'USER'
-          //     ? this.$auth.user.type
-          //     : '',
+    
         },
         {
           title: this.$t('Post_a_job'),
@@ -181,6 +178,12 @@ export default {
           // type: this.$auth.user ? this.$auth.user.type : '',
         },
         {
+          title: this.$t('salary_reports'),
+          to: '/salary-reports',
+          type: 'none',
+          // type: this.$auth.user ? this.$auth.user.type : '',
+        },
+        {
           title: this.$t('salaries'),
           to: '/salaries',
           type:
@@ -205,7 +208,7 @@ export default {
   watch: {
     $route: {
       handler({ path }) {
-        if (path === '/search-on-employee' || path == '/find-jobs') {
+        if (path === '/search-on-employee' || path == '/find-jobs' || path == '/salary-reports') {
           this.linkStyle = { color: '#4A4A4A' }
         } else {
           this.linkStyle = { color: '#fff' }

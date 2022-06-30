@@ -476,7 +476,7 @@ export default {
   watch: {
     $route: {
       handler() {
-        if (this.$route.path === '/search-on-employee') {
+        if (this.$route.path === '/search-on-employee'||this.$route.path ==='/salary-reports') {
           this.iconColor = 'gray'
           this.isHome = false
         } else {

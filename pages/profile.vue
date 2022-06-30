@@ -77,7 +77,7 @@
                                     <v-form @submit.prevent="sendcv">
                                       <LazyFileUpload
                                         @fileSelected="onFileSelect"
-                                        :label="$t('another_CV')"
+                                        :label="$t('new_CV')"
                                         v-model="form.new_CV"
                                       />
                                       <v-btn
@@ -292,20 +292,20 @@ export default {
           this.$router.push('/profile/info')
         })
     },
-    sendcv(cv) {
+     sendcv() {
       this.$axios
         .post(`/user/upload-cv`, {
           cv: this.form.new_CV,
         })
         .then(res => {
           this.dialog = false
-          console.log(CV)
+          
           // this.$emit('successfullyAdded', res.data)
         })
     },
     onFileSelect({ file }) {
       this.form.new_CV = file
-      console.log(this.form.new_CV)
+      
     },
   },
 }
